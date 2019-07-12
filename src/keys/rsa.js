@@ -67,3 +67,11 @@ exports.hashAndVerify = async function (key, sig, msg) { // eslint-disable-line 
   const pem = jwkToPem(key)
   return verify.verify(pem, sig)
 }
+
+exports.encrypt = async function (key, bytes) {
+  return crypto.publicEncrypt(jwkToPem(key), bytes)
+}
+
+exports.decrypt = async function (key, bytes) {
+  return crypto.privateDecrypt(jwkToPem(key), bytes)
+}
