@@ -1,3 +1,6 @@
+/**
+ * @module libp2p-crypto/keys/rsa-browser
+ */
 'use strict'
 
 const webcrypto = require('../webcrypto')
@@ -5,6 +8,10 @@ const randomBytes = require('../random-bytes')
 
 exports.utils = require('./rsa-utils')
 
+/**
+ * @param {*} bits
+ * @returns {object}
+ */
 exports.generateKey = async function (bits) {
   const pair = await webcrypto.get().subtle.generateKey(
     {
@@ -25,7 +32,12 @@ exports.generateKey = async function (bits) {
   }
 }
 
-// Takes a jwk key
+/**
+ * Takes a jwk key
+ *
+ * @param {*} key
+ * @returns {object}
+ */
 exports.unmarshalPrivateKey = async function (key) {
   const privateKey = await webcrypto.get().subtle.importKey(
     'jwk',
@@ -56,6 +68,11 @@ exports.unmarshalPrivateKey = async function (key) {
 
 exports.getRandomValues = randomBytes
 
+/**
+ * @param {*} key
+ * @param {*} msg
+ * @returns {Buffer}
+ */
 exports.hashAndSign = async function (key, msg) {
   const privateKey = await webcrypto.get().subtle.importKey(
     'jwk',
@@ -77,6 +94,12 @@ exports.hashAndSign = async function (key, msg) {
   return Buffer.from(sig)
 }
 
+/**
+ * @param {*} key
+ * @param {*} sig
+ * @param {*} msg
+ * @returns {*}
+ */
 exports.hashAndVerify = async function (key, sig, msg) {
   const publicKey = await webcrypto.get().subtle.importKey(
     'jwk',

@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/keys/ecdh
+ */
+
 'use strict'
 
 const crypto = require('crypto')
@@ -9,6 +13,9 @@ const curves = {
   'P-521': 'secp521r1'
 }
 
+/**
+ * @param {*} curve
+ */
 exports.generateEphmeralKeyPair = async function (curve) { // eslint-disable-line require-await
   validateCurveType(Object.keys(curves), curve)
 

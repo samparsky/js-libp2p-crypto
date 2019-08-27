@@ -1,9 +1,18 @@
 /* eslint-env browser */
 
+/**
+ * @module libp2p-crypto/webcrypto
+ */
+
 'use strict'
 
-// Check native crypto exists and is enabled (In insecure context `self.crypto`
-// exists but `self.crypto.subtle` does not).
+/**
+ * Check native crypto exists and is enabled (In insecure context `self.crypto`
+ * exists but `self.crypto.subtle` does not).
+ * @param {*} win
+ * @returns {*}
+ */
+
 exports.get = (win = self) => {
   const nativeCrypto = win.crypto || win.msCrypto
 

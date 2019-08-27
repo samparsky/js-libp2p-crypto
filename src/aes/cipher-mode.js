@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/aes/cipher-mode
+ */
+
 'use strict'
 
 const errcode = require('err-code')
@@ -7,6 +11,9 @@ const CIPHER_MODES = {
   32: 'aes-256-ctr'
 }
 
+/**
+ * @param {*} key
+ */
 module.exports = function (key) {
   const mode = CIPHER_MODES[key.length]
   if (!mode) {

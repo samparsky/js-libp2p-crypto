@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/hmac/index-browser
+ */
+
 'use strict'
 
 const webcrypto = require('../webcrypto')
@@ -13,6 +17,10 @@ const sign = async (key, data) => {
   return Buffer.from(await webcrypto.get().subtle.sign({ name: 'HMAC' }, key, data))
 }
 
+/**
+ * @param {*} hashType
+ * @param {*} secret
+ */
 exports.create = async function (hashType, secret) {
   const hash = hashTypes[hashType]
 

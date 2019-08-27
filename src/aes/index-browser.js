@@ -1,8 +1,16 @@
+/**
+ * @module libp2p-crypto/aes/index-browser
+ */
+
 'use strict'
 
 const asm = require('asmcrypto.js')
 const validateCipherMode = require('./cipher-mode')
 
+/**
+ * @param {*} key
+ * @param {*} iv
+ */
 exports.create = async function (key, iv) { // eslint-disable-line require-await
   // Throws an error if mode is invalid
   validateCipherMode(key)

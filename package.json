@@ -3,6 +3,7 @@
   "version": "0.17.0",
   "description": "Crypto primitives for libp2p",
   "main": "src/index.js",
+  "typings": "src/types.d.ts",
   "leadMaintainer": "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
   "browser": {
     "./src/hmac/index.js": "./src/hmac/index-browser.js",
@@ -25,7 +26,8 @@
     "release-minor": "aegir release --type minor",
     "release-major": "aegir release --type major",
     "coverage": "aegir coverage --ignore src/keys/keys.proto.js",
-    "size": "bundlesize -f dist/index.min.js -s 139kB"
+    "size": "bundlesize -f dist/index.min.js -s 139kB",
+    "generate-typings": "./node_modules/.bin/jsdoc -c ./.jsdoc.json"
   },
   "keywords": [
     "IPFS",
@@ -59,7 +61,9 @@
     "chai": "^4.2.0",
     "chai-string": "^1.5.0",
     "dirty-chai": "^2.0.1",
-    "sinon": "^7.3.2"
+    "jsdoc": "^3.6.3",
+    "sinon": "^7.3.2",
+    "tsd-jsdoc": "^2.3.1"
   },
   "engines": {
     "node": ">=10.0.0",
@@ -95,6 +99,7 @@
     "dignifiedquire <dignifiedquire@users.noreply.github.com>",
     "dirkmc <dirkmdev@gmail.com>",
     "greenkeeper[bot] <greenkeeper[bot]@users.noreply.github.com>",
-    "nikuda <nikuda@gmail.com>"
+    "nikuda <nikuda@gmail.com>",
+    "samuel <samparsky@gmail.com>"
   ]
 }

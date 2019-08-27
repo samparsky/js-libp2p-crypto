@@ -1,9 +1,19 @@
 'use strict'
 
+/**
+ * @module libp2p-crypto/util
+ */
+
 const BN = require('asn1.js').bignum
 
-// Convert a BN.js instance to a base64 encoded string without padding
-// Adapted from https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#appendix-C
+/**
+ * Convert a BN.js instance to a base64 encoded string without padding
+ * Adapted from https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#appendix-C
+ * 
+ * @param {*} bn
+ * @param {*} len
+ * @returns {BN}
+ */
 exports.toBase64 = function toBase64 (bn, len) {
   // if len is defined then the bytes are leading-0 padded to the length
   let s = bn.toArrayLike(Buffer, 'be', len).toString('base64')
@@ -14,7 +24,11 @@ exports.toBase64 = function toBase64 (bn, len) {
     .replace(/\//g, '_') // 63rd char of encoding
 }
 
-// Convert a base64 encoded string to a BN.js instance
+/**
+ * Convert a base64 encoded string to a BN.js instance
+ * @param {string} str
+ * @returns {BN}
+ */
 exports.toBn = function toBn (str) {
   return new BN(Buffer.from(str, 'base64'))
 }

@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/keys/rsa-class
+ */
+
 'use strict'
 
 const multihashing = require('multihashing-async')
@@ -11,55 +15,92 @@ require('node-forge/lib/sha512')
 require('node-forge/lib/pbe')
 const forge = require('node-forge/lib/forge')
 
+/**
+ * @class
+ */
 class RsaPublicKey {
+  /**
+   * @constructs
+   * @param {*} key
+   */
   constructor (key) {
     this._key = key
   }
-
+  /**
+   * @param {*} data
+   * @param {*} sig
+   */
   async verify (data, sig) { // eslint-disable-line require-await
     return crypto.hashAndVerify(this._key, sig, data)
   }
-
+  /**
+   * marshal
+   */
   marshal () {
     return crypto.utils.jwkToPkix(this._key)
   }
-
+  /**
+   * Get bytes
+   */
   get bytes () {
     return pbm.PublicKey.encode({
       Type: pbm.KeyType.RSA,
       Data: this.marshal()
     })
   }
-
+  /**
+   *
+   * @param {*} bytes
+   */
   encrypt (bytes) {
     return this._key.encrypt(bytes, 'RSAES-PKCS1-V1_5')
   }
-
+  /**
+   *
+   * @param {*} key
+   */
   equals (key) {
     return this.bytes.equals(key.bytes)
   }
-
+  /**
+   * hash
+   */
   async hash () { // eslint-disable-line require-await
     return multihashing(this.bytes, 'sha2-256')
   }
 }
 
+/**
+ * @class
+ */
 class RsaPrivateKey {
-  // key       - Object of the jwk format
-  // publicKey - Buffer of the spki format
+  /**
+   * @constructs
+   * @param {object} key Object of the jwk format
+   * @param {Buffer} publicKey Buffer of the spki format
+   */
   constructor (key, publicKey) {
     this._key = key
     this._publicKey = publicKey
   }
-
+  /**
+   * genSecret
+   */
   genSecret () {
     return crypto.getRandomValues(16)
   }
-
+  /**
+   * sign
+   * @param {*} message 
+   * @returns {Promise<*>}
+   */
   async sign (message) { // eslint-disable-line require-await
     return crypto.hashAndSign(this._key, message)
   }
-
+  /**
+   * public
+   * @returns {RsaPublicKey}
+   */
   get public () {
     if (!this._publicKey) {
       throw errcode(new Error('public key not provided'), 'ERR_PUBKEY_NOT_PROVIDED')
@@ -67,22 +108,35 @@ class RsaPrivateKey {
 
     return new RsaPublicKey(this._publicKey)
   }
-
+  /**
+   * marshal
+   * @returns {*}
+   */
   marshal () {
     return crypto.utils.jwkToPkcs1(this._key)
   }
-
+  /**
+   * bytes
+   * @returns {*}
+   */
   get bytes () {
     return pbm.PrivateKey.encode({
       Type: pbm.KeyType.RSA,
       Data: this.marshal()
     })
   }
-
+  /**
+   * 
+   * @param {*} key 
+   * @returns {boolean}
+   */
   equals (key) {
     return this.bytes.equals(key.bytes)
   }
 
+  /**
+   * @returns {Promise<*>}
+   */
   async hash () { // eslint-disable-line require-await
     return multihashing(this.bytes, 'sha2-256')
   }
@@ -131,22 +185,42 @@ class RsaPrivateKey {
   }
 }
 
+/**
+ *
+ * @param {*} bytes
+ * @returns {Promise<RsaPrivateKey>}
+ */
 async function unmarshalRsaPrivateKey (bytes) {
   const jwk = crypto.utils.pkcs1ToJwk(bytes)
   const keys = await crypto.unmarshalPrivateKey(jwk)
   return new RsaPrivateKey(keys.privateKey, keys.publicKey)
 }
 
+/**
+ *
+ * @param {*} bytes
+ * @returns {Promise<RsaPublicKey>}
+ */
 function unmarshalRsaPublicKey (bytes) {
   const jwk = crypto.utils.pkixToJwk(bytes)
   return new RsaPublicKey(jwk)
 }
 
+/**
+ *
+ * @param {*} jwk
+ * @returns {Promise<RsaPrivateKey>}
+ */
 async function fromJwk (jwk) {
   const keys = await crypto.unmarshalPrivateKey(jwk)
   return new RsaPrivateKey(keys.privateKey, keys.publicKey)
 }
 
+/**
+ *
+ * @param {*} bits
+ * @returns {Promise<RsaPrivateKey>}
+ */
 async function generateKeyPair (bits) {
   const keys = await crypto.generateKey(bits)
   return new RsaPrivateKey(keys.privateKey, keys.publicKey)

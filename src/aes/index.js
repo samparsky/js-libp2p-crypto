@@ -1,8 +1,16 @@
+/**
+ * @module libp2p-crypto/aes
+ */
+
 'use strict'
 
 const ciphers = require('./ciphers')
 const cipherMode = require('./cipher-mode')
 
+/**
+ * @param {*} key
+ * @param {*} iv
+ */
 exports.create = async function (key, iv) { // eslint-disable-line require-await
   const mode = cipherMode(key)
   const cipher = ciphers.createCipheriv(mode, key, iv)

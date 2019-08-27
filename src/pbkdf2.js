@@ -1,4 +1,7 @@
 'use strict'
+/**
+ * @module libp2p-crypto/pbkdf2
+ */
 
 const forgePbkdf2 = require('node-forge/lib/pbkdf2')
 const forgeUtil = require('node-forge/lib/util')

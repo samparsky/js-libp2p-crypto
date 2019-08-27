@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/keys/rsa
+ */
+
 'use strict'
 
 const crypto = require('crypto')
@@ -30,6 +34,9 @@ const jwkToPem = require('pem-jwk').jwk2pem
 
 exports.utils = require('./rsa-utils')
 
+/**
+ * @param {*} bits
+ */
 exports.generateKey = async function (bits) { // eslint-disable-line require-await
   const key = keypair({ bits })
   return {
@@ -38,7 +45,10 @@ exports.generateKey = async function (bits) { // eslint-disable-line require-awa
   }
 }
 
-// Takes a jwk key
+/**
+ * Takes a jwk key
+ * @param {*} key
+ */
 exports.unmarshalPrivateKey = async function (key) { // eslint-disable-line require-await
   if (!key) {
     throw errcode(new Error('Missing key parameter'), 'ERR_MISSING_KEY')
@@ -55,6 +65,10 @@ exports.unmarshalPrivateKey = async function (key) { // eslint-disable-line requ
 
 exports.getRandomValues = randomBytes
 
+/**
+ * @param {*} key
+ * @param {*} msg
+ */
 exports.hashAndSign = async function (key, msg) { // eslint-disable-line require-await
   const sign = crypto.createSign('RSA-SHA256')
   sign.update(msg)
@@ -62,6 +76,11 @@ exports.hashAndSign = async function (key, msg) { // eslint-disable-line require
   return sign.sign(pem)
 }
 
+/**
+ * @param {*} key
+ * @param {*} sig
+ * @param {*} msg
+ */
 exports.hashAndVerify = async function (key, sig, msg) { // eslint-disable-line require-await
   const verify = crypto.createVerify('RSA-SHA256')
   verify.update(msg)

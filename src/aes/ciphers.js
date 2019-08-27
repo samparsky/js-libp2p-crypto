@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/aes/ciphers
+ */
+
 'use strict'
 
 const crypto = require('crypto')

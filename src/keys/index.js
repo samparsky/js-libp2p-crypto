@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/keys
+ */
+
 'use strict'
 
 const protobuf = require('protons')
@@ -16,7 +20,13 @@ const supportedKeys = {
   secp256k1: require('libp2p-crypto-secp256k1')(keysPBM, require('../random-bytes'))
 }
 
+/**
+ * @type {object}
+ */
 exports.supportedKeys = supportedKeys
+/**
+ * @type {object}
+ */
 exports.keysPBM = keysPBM
 
 const ErrMissingSecp256K1 = {
@@ -36,13 +46,25 @@ function typeToKey (type) {
 exports.keyStretcher = require('./key-stretcher')
 exports.generateEphemeralKeyPair = require('./ephemeral-keys')
 
-// Generates a keypair of the given type and bitsize
+/**
+ * Generates a keypair of the given type and bitsize
+ *
+ * @param {*} type
+ * @param {*} bits
+ */
 exports.generateKeyPair = async (type, bits) => { // eslint-disable-line require-await
   return typeToKey(type).generateKeyPair(bits)
 }
 
-// Generates a keypair of the given type and bitsize
-// seed is a 32 byte uint8array
+
+/**
+ * Generates a keypair of the given type and bitsize
+ * seed is a 32 byte uint8array
+ *
+ * @param {*} type
+ * @param {*} seed
+ * @param {*} bits
+ */
 exports.generateKeyPairFromSeed = async (type, seed, bits) => { // eslint-disable-line require-await
   const key = typeToKey(type)
   if (type.toLowerCase() !== 'ed25519') {
@@ -50,9 +72,13 @@ exports.generateKeyPairFromSeed = async (type, seed, bits) => { // eslint-disabl
   }
   return key.generateKeyPairFromSeed(seed, bits)
 }
-
-// Converts a protobuf serialized public key into its
-// representative object
+ 
+/**
+ * Converts a protobuf serialized public key into its
+ * representative object
+ *
+ * @param {*} buf
+ */
 exports.unmarshalPublicKey = (buf) => {
   const decoded = keysPBM.PublicKey.decode(buf)
   const data = decoded.Data
@@ -73,15 +99,24 @@ exports.unmarshalPublicKey = (buf) => {
   }
 }
 
-// Converts a public key object into a protobuf serialized public key
+/**
+ * Converts a public key object into a protobuf serialized public key
+ *
+ * @param {*} key
+ * @param {*} type
+ */
 exports.marshalPublicKey = (key, type) => {
   type = (type || 'rsa').toLowerCase()
   typeToKey(type) // check type
   return key.bytes
 }
 
-// Converts a protobuf serialized private key into its
-// representative object
+/**
+ * Converts a protobuf serialized private key into its
+ * representative object
+ *
+ * @param {*} buf
+ */
 exports.unmarshalPrivateKey = async (buf) => { // eslint-disable-line require-await
   const decoded = keysPBM.PrivateKey.decode(buf)
   const data = decoded.Data
@@ -102,13 +137,23 @@ exports.unmarshalPrivateKey = async (buf) => { // eslint-disable-line require-aw
   }
 }
 
-// Converts a private key object into a protobuf serialized private key
+/**
+ * Converts a private key object into a protobuf serialized private key
+ *
+ * @param {*} key
+ * @param {*} type
+ */
 exports.marshalPrivateKey = (key, type) => {
   type = (type || 'rsa').toLowerCase()
   typeToKey(type) // check type
   return key.bytes
 }
 
+/**
+ *
+ * @param {*} pem
+ * @param {*} password
+ */
 exports.import = async (pem, password) => { // eslint-disable-line require-await
   const key = forge.pki.decryptRsaPrivateKey(pem, password)
   if (key === null) {

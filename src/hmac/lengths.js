@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/hmac/lengths
+ */
+
 'use strict'
 
 module.exports = {

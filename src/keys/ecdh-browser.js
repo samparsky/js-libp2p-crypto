@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto/keys/ecdh-browser
+ */
+
 'use strict'
 
 const errcode = require('err-code')
@@ -11,7 +15,9 @@ const bits = {
   'P-384': 384,
   'P-521': 521
 }
-
+/**
+ * @param {*} curve
+ */
 exports.generateEphmeralKeyPair = async function (curve) {
   validateCurveType(Object.keys(bits), curve)
   const pair = await webcrypto.get().subtle.generateKey(

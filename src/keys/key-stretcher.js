@@ -1,3 +1,6 @@
+/**
+ * @module libp2p-crypto/keys/key-stretcher
+ */
 'use strict'
 
 const errcode = require('err-code')
@@ -18,8 +21,15 @@ const cipherMap = {
   }
 }
 
-// Generates a set of keys for each party by stretching the shared key.
-// (myIV, theirIV, myCipherKey, theirCipherKey, myMACKey, theirMACKey)
+
+/**
+ * Generates a set of keys for each party by stretching the shared key.
+ * (myIV, theirIV, myCipherKey, theirCipherKey, myMACKey, theirMACKey)
+ * 
+ * @param {*} cipherType
+ * @param {*} hash
+ * @param {*} secret
+ */
 module.exports = async (cipherType, hash, secret) => {
   const cipher = cipherMap[cipherType]
 

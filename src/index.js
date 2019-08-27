@@ -1,3 +1,7 @@
+/**
+ * @module libp2p-crypto
+ */
+
 'use strict'
 
 const hmac = require('./hmac')

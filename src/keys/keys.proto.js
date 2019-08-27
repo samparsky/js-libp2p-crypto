@@ -1,5 +1,11 @@
+/**
+ * @module libp2p-crypto/keys/key
+ */
 'use strict'
 
+/**
+ * @type {string}
+ */
 module.exports = `enum KeyType {
   RSA = 0;
   Ed25519 = 1;

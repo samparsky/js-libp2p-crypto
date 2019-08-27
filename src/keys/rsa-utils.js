@@ -1,3 +1,6 @@
+/**
+ * @module libp2p-crypto/keys/rsa-utils
+ */
 'use strict'
 
 const asn1 = require('asn1.js')
@@ -49,7 +52,11 @@ const RSAPublicKey = asn1.define('RSAPublicKey', function () {
   )
 })
 
-// Convert a PKCS#1 in ASN1 DER format to a JWK key
+/**
+ * Convert a PKCS#1 in ASN1 DER format to a JWK key
+ *
+ * @param {*} bytes
+ */
 exports.pkcs1ToJwk = function (bytes) {
   const asn1 = RSAPrivateKey.decode(bytes, 'der')
 
@@ -68,7 +75,11 @@ exports.pkcs1ToJwk = function (bytes) {
   }
 }
 
-// Convert a JWK key into PKCS#1 in ASN1 DER format
+/**
+ * Convert a JWK key into PKCS#1 in ASN1 DER format
+ *
+ * @param {*} jwk
+ */
 exports.jwkToPkcs1 = function (jwk) {
   return RSAPrivateKey.encode({
     version: 0,
@@ -83,7 +94,11 @@ exports.jwkToPkcs1 = function (jwk) {
   }, 'der')
 }
 
-// Convert a PKCIX in ASN1 DER format to a JWK key
+/**
+ * Convert a PKCIX in ASN1 DER format to a JWK key
+ *
+ * @param {*} bytes
+ */
 exports.pkixToJwk = function (bytes) {
   const ndata = PublicKey.decode(bytes, 'der')
   const asn1 = RSAPublicKey.decode(ndata.subjectPublicKey.data, 'der')
@@ -97,7 +112,11 @@ exports.pkixToJwk = function (bytes) {
   }
 }
 
-// Convert a JWK key to PKCIX in ASN1 DER format
+/**
+ * Convert a JWK key to PKCIX in ASN1 DER format
+ *
+ * @param {*} bytes
+ */
 exports.jwkToPkix = function (jwk) {
   return PublicKey.encode({
     algorithm: {
