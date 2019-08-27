@@ -11,5 +11,8 @@
         "template": "./node_modules/tsd-jsdoc/dist",
         "recurse": true
     },
-    "plugins": ["./node_modules/jsdoc-export-default-interop/dist/index"]
+    "plugins": ["./node_modules/jsdoc-export-default-interop/dist/index","jsdoc-plugin-typescript"],
+    "typescript": {
+        "moduleRoot": "src"
+    }
 }

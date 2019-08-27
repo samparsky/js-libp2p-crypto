@@ -26,6 +26,7 @@ const cipherMap = {
  * Generates a set of keys for each party by stretching the shared key.
  * (myIV, theirIV, myCipherKey, theirCipherKey, myMACKey, theirMACKey)
  * 
+ *
  * @param {*} cipherType
  * @param {*} hash
  * @param {*} secret

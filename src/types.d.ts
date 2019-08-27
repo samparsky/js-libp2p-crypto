@@ -313,6 +313,7 @@ declare module "libp2p-crypto/keys/key-stretcher" {
      * Generates a set of keys for each party by stretching the shared key.
      * (myIV, theirIV, myCipherKey, theirCipherKey, myMACKey, theirMACKey)
      *
+     *
      * @param {*} cipherType
      * @param {*} hash
      * @param {*} secret
@@ -428,7 +429,7 @@ declare module "libp2p-crypto/keys/rsa-class" {
          * public
          * @type {function}
          * @readonly
-         * @returns {RsaPublicKey}
+         * @returns {module:keys/rsa-class~RsaPublicKey}
          */
         readonly public: (...params: any[]) => any;
         /**
@@ -475,27 +476,27 @@ declare module "libp2p-crypto/keys/rsa-class" {
     /**
      *
      * @param {*} bytes
-     * @returns {Promise<RsaPrivateKey>}
+     * @returns {Promise<module:keys/rsa-class~RsaPrivateKey>}
      */
-    function unmarshalRsaPrivateKey(bytes: any): Promise<RsaPrivateKey>;
+    function unmarshalRsaPrivateKey(bytes: any): Promise<module>;
     /**
      *
      * @param {*} bytes
-     * @returns {Promise<RsaPublicKey>}
+     * @returns {Promise<module:keys/rsa-class~RsaPublicKey>}
      */
-    function unmarshalRsaPublicKey(bytes: any): Promise<RsaPublicKey>;
+    function unmarshalRsaPublicKey(bytes: any): Promise<module>;
     /**
      *
      * @param {*} jwk
-     * @returns {Promise<RsaPrivateKey>}
+     * @returns {Promise<module:keys/rsa-class~RsaPrivateKey>}
      */
-    function fromJwk(jwk: any): Promise<RsaPrivateKey>;
+    function fromJwk(jwk: any): Promise<module>;
     /**
      *
      * @param {*} bits
-     * @returns {Promise<RsaPrivateKey>}
+     * @returns {Promise<module:keys/rsa-class~RsaPrivateKey>}
      */
-    function generateKeyPair(bits: any): Promise<RsaPrivateKey>;
+    function generateKeyPair(bits: any): Promise<module>;
 }
 
 /**
