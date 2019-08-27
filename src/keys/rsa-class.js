@@ -41,6 +41,9 @@ class RsaPublicKey {
   }
   /**
    * Get bytes
+   * @type {function}
+   * @readonly
+   * @returns {*}
    */
   get bytes () {
     return pbm.PublicKey.encode({
@@ -51,6 +54,7 @@ class RsaPublicKey {
   /**
    *
    * @param {*} bytes
+   * @returns {*}
    */
   encrypt (bytes) {
     return this._key.encrypt(bytes, 'RSAES-PKCS1-V1_5')
@@ -58,12 +62,14 @@ class RsaPublicKey {
   /**
    *
    * @param {*} key
+   * @returns {*}
    */
   equals (key) {
     return this.bytes.equals(key.bytes)
   }
   /**
    * hash
+   * @returns {*}
    */
   async hash () { // eslint-disable-line require-await
     return multihashing(this.bytes, 'sha2-256')
@@ -85,6 +91,7 @@ class RsaPrivateKey {
   }
   /**
    * genSecret
+   * @returns {*}
    */
   genSecret () {
     return crypto.getRandomValues(16)
@@ -99,6 +106,8 @@ class RsaPrivateKey {
   }
   /**
    * public
+   * @type {function}
+   * @readonly
    * @returns {RsaPublicKey}
    */
   get public () {
@@ -117,6 +126,8 @@ class RsaPrivateKey {
   }
   /**
    * bytes
+   * @type {function}
+   * @readonly
    * @returns {*}
    */
   get bytes () {

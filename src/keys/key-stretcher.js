@@ -29,8 +29,9 @@ const cipherMap = {
  * @param {*} cipherType
  * @param {*} hash
  * @param {*} secret
+ * @returns {Promise<object>}
  */
-module.exports = async (cipherType, hash, secret) => {
+export default async function generate(cipherType, hash, secret) {
   const cipher = cipherMap[cipherType]
 
   if (!cipher) {

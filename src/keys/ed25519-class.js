@@ -41,6 +41,7 @@ class Ed25519PublicKey {
     return Buffer.from(this._key)
   }
   /**
+   * @type {function}
    * @returns {*}
    */
   get bytes () {
@@ -91,6 +92,9 @@ class Ed25519PrivateKey {
   }
   /**
    * Public
+   *
+   * @type {function}
+   * @readonly
    */
   get public () {
     return new Ed25519PublicKey(this._publicKey)
@@ -103,6 +107,8 @@ class Ed25519PrivateKey {
   }
   /**
    * Bytes
+   * @type {function}
+   * @readonly
    */
   get bytes () {
     return pbm.PrivateKey.encode({

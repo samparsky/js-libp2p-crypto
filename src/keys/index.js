@@ -42,8 +42,13 @@ function typeToKey (type) {
   }
   return key
 }
-
+/**
+ * @type {*}
+ */
 exports.keyStretcher = require('./key-stretcher')
+/**
+ * @type {*}
+ */
 exports.generateEphemeralKeyPair = require('./ephemeral-keys')
 
 /**
@@ -51,6 +56,7 @@ exports.generateEphemeralKeyPair = require('./ephemeral-keys')
  *
  * @param {*} type
  * @param {*} bits
+ * @returns {*}
  */
 exports.generateKeyPair = async (type, bits) => { // eslint-disable-line require-await
   return typeToKey(type).generateKeyPair(bits)
@@ -64,6 +70,7 @@ exports.generateKeyPair = async (type, bits) => { // eslint-disable-line require
  * @param {*} type
  * @param {*} seed
  * @param {*} bits
+ * @returns {*}
  */
 exports.generateKeyPairFromSeed = async (type, seed, bits) => { // eslint-disable-line require-await
   const key = typeToKey(type)
@@ -78,6 +85,7 @@ exports.generateKeyPairFromSeed = async (type, seed, bits) => { // eslint-disabl
  * representative object
  *
  * @param {*} buf
+ * @returns {*}
  */
 exports.unmarshalPublicKey = (buf) => {
   const decoded = keysPBM.PublicKey.decode(buf)
@@ -104,6 +112,7 @@ exports.unmarshalPublicKey = (buf) => {
  *
  * @param {*} key
  * @param {*} type
+ * @returns {*}
  */
 exports.marshalPublicKey = (key, type) => {
   type = (type || 'rsa').toLowerCase()
@@ -116,6 +125,7 @@ exports.marshalPublicKey = (key, type) => {
  * representative object
  *
  * @param {*} buf
+ * @return {*}
  */
 exports.unmarshalPrivateKey = async (buf) => { // eslint-disable-line require-await
   const decoded = keysPBM.PrivateKey.decode(buf)
@@ -142,6 +152,7 @@ exports.unmarshalPrivateKey = async (buf) => { // eslint-disable-line require-aw
  *
  * @param {*} key
  * @param {*} type
+ * @returns {*}
  */
 exports.marshalPrivateKey = (key, type) => {
   type = (type || 'rsa').toLowerCase()
@@ -153,6 +164,7 @@ exports.marshalPrivateKey = (key, type) => {
  *
  * @param {*} pem
  * @param {*} password
+ * @returns {*}
  */
 exports.import = async (pem, password) => { // eslint-disable-line require-await
   const key = forge.pki.decryptRsaPrivateKey(pem, password)
